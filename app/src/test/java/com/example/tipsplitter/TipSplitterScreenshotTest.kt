@@ -28,7 +28,7 @@ class TipSplitterScreenshotTest {
         composeRule.setContent { MaterialTheme { TipSplitterScreen() } }
 
         composeRule.onNodeWithTag("perPerson").assertTextEquals("Each pays: 0.00")
-        composeRule.onRoot().captureRoboImage("build/outputs/roborazzi/empty_state.png")
+        composeRule.onRoot().captureRoboImage()
     }
 
     @Test
@@ -40,6 +40,6 @@ class TipSplitterScreenshotTest {
         composeRule.onNodeWithTag("plus").performClick()
 
         composeRule.onNodeWithTag("perPerson").assertTextEquals("Each pays: 46.00")
-        composeRule.onRoot().captureRoboImage("build/outputs/roborazzi/split_between_three.png")
+        composeRule.onRoot().captureRoboImage()
     }
 }

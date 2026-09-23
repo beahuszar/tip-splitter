@@ -54,6 +54,20 @@ kotlin {
     }
 }
 
+tasks.register<Exec>("attachRoborazziScreenshots") {
+    workingDir = rootDir
+    commandLine("python3", "scripts/attach_roborazzi_screenshots.py")
+}
+
+afterEvaluate {
+    // :app:test is the umbrella task the CI workflow runs, but Android Studio's
+    // gutter run icons invoke the variant-specific testDebugUnitTest directly,
+    // bypassing it. Hook the variant task so both trigger the attach step.
+    tasks.named("testDebugUnitTest") {
+        finalizedBy("attachRoborazziScreenshots")
+    }
+}
+
 dependencies {
     implementation(platform(libs.compose.bom))
     implementation(libs.androidx.activity.compose)

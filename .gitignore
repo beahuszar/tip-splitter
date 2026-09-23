@@ -3,6 +3,9 @@
 build/
 .kotlin/
 
+# Test report staging (see scripts/attach_roborazzi_screenshots.py)
+bitrise-test-results/
+
 # Machine-specific SDK path, written by Android Studio
 local.properties
 
