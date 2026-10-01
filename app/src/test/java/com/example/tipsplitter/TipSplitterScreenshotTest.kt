@@ -10,6 +10,7 @@ import androidx.compose.ui.test.performTextInput
 import com.github.takahirom.roborazzi.captureRoboImage
 import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.TestName
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
@@ -23,12 +24,19 @@ class TipSplitterScreenshotTest {
     @get:Rule
     val composeRule = createComposeRule()
 
+    @get:Rule
+    val testName = TestName()
+
+    // <classname>__<name>__<label>.<ext>, the file name convention the Bitrise Export step links by.
+    private fun attachmentPath(label: String) =
+        "build/outputs/roborazzi/${javaClass.name}__${testName.methodName}__$label.png"
+
     @Test
     fun emptyState() {
         composeRule.setContent { MaterialTheme { TipSplitterScreen() } }
 
         composeRule.onNodeWithTag("perPerson").assertTextEquals("Each pays: 0.00")
-        composeRule.onRoot().captureRoboImage()
+        composeRule.onRoot().captureRoboImage(attachmentPath("1"))
     }
 
     @Test
@@ -40,6 +48,6 @@ class TipSplitterScreenshotTest {
         composeRule.onNodeWithTag("plus").performClick()
 
         composeRule.onNodeWithTag("perPerson").assertTextEquals("Each pays: 46.00")
-        composeRule.onRoot().captureRoboImage()
+        composeRule.onRoot().captureRoboImage(attachmentPath("1"))
     }
 }
