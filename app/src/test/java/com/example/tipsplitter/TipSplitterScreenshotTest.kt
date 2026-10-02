@@ -29,7 +29,7 @@ class TipSplitterScreenshotTest {
 
     // <classname>__<name>__<label>.<ext>, the file name convention the Bitrise Export step links by.
     private fun attachmentPath(label: String) =
-        "build/outputs/roborazzi/${javaClass.name}__${testName.methodName}__$label.png"
+        "build/test-results/screenshots/${javaClass.name}__${testName.methodName}__$label.png"
 
     @Test
     fun emptyState() {
